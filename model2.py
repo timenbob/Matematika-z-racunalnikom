@@ -2,15 +2,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def F(phi,c):
-    stevec=np.exp(((phi)/(np.pi*c)) + 1/(2*c))-1
+    stevec=np.exp((phi/(np.pi*c)) + 1/(2*c))-1
     imenovalec=np.exp(1/c)-1
-    return np.pi *((stevec)/imenovalec - 1/2)
+    return np.pi *(stevec/imenovalec - 1/2)
 
 def f1(phi,c):
     return np.sin(F(phi,c))
 
 def f2(phi,c):
-    return -f1(phi,c)
+    return -f1(-phi,c)
 
 def a_utez(theta,phi,c):
     f1v=f1(phi,c)
@@ -18,9 +18,6 @@ def a_utez(theta,phi,c):
     stevec = np.cos(theta)**2 * (1.0 - f1v**2)
     imenovalec = stevec + np.sin(theta)**2 * (1.0 - f2v**2)
     return stevec/imenovalec
-
-def a_utez_2(theta,phi,c):
-    return 1/(1+np.tan(theta)**2 * (np.cos(F(phi,c))**2)/(np.cos(F(-phi,c))**2))
 
 def delta_R(theta,phi,c):
     '''if abs(phi) < np.pi/2:
@@ -33,21 +30,21 @@ def delta_R(theta,phi,c):
     # osnovni izraz
     out = a_utez(theta, phi, c)*f1(phi, c) + (1 - a_utez(theta, phi, c))*f2(phi, c)
     # robni pogoji pri |phi| = pi/2 (če jih želiš)
-    out = np.where((phi==np.pi/2),  1.0, out)
-    out = np.where((phi== -np.pi/2), -1.0, out)
+    out = np.where(np.isclose(phi,  np.pi/2),  1.0, out)
+    out = np.where(np.isclose(phi, -np.pi/2), -1.0, out)
     return out
 
 def R(theta,phi,c,d):
-    return 1+d*delta_R(theta,phi,c)
+    return (1+d)*delta_R(theta,phi,c)
 
 def sfericne_kartezicne_mreza(c, d, n_theta=240, n_phi=240):
-    theta = np.linspace(0.0,2*np.pi, n_theta,endpoint=False)
-    phi   = np.linspace(-np.pi/2, np.pi/2, n_phi,endpoint=False)
+    theta = np.linspace(0.0,2*np.pi, n_theta)
+    phi   = np.linspace(-np.pi/2, np.pi/2, n_phi)
     TH, PH = np.meshgrid(theta, phi, indexing="ij")
 
     RR = R(TH, PH, c, d)
-    X = RR * np.cos(PH) * np.sin(TH)
-    Y = RR * np.cos(TH) * np.cos(PH)
+    X = RR * np.cos(TH) * np.cos(PH)
+    Y = RR * np.sin(TH) * np.cos(PH)
     Z = RR * np.sin(PH)
     return X, Y, Z
 
