@@ -395,7 +395,7 @@ if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser("ML/ES tuning to (1 stable, 1 unstable) with exactly two mirrors")
     ap.add_argument("--stl", required=False,
-                    default="/home/timen/Documents/Faks/Matematika-z-racunalnikom/ml_out2/final_candidate.stl",
+                    default="/home/timen/Documents/Faks/Matematika-z-racunalnikom/novi.stl",
                     help="Pot do STL datoteke")
     ap.add_argument("--iters", type=int, default=150)
     ap.add_argument("--pop", type=int, default=32)
