@@ -189,7 +189,8 @@ if __name__ == "__main__":
     ap.add_argument("--out", default="equilibria_marked.stl", help="Output STL with markers")
     ap.add_argument("--dirs", type=int, default=8000, help="Number of sample directions")
     ap.add_argument("--eps", type=float, default=1e-3, help="Small rotation for testing stability")
-    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--seed", type=int, default=5
+                    )
     args = ap.parse_args()
 
     mesh = load_mesh(args.stl)
