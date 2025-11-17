@@ -1,10 +1,10 @@
 import trimesh as tm
 from trimesh import remesh
 
-mesh = tm.load_mesh("novi2.stl", force='mesh')
+mesh = tm.load_mesh("/home/timen/Documents/Faks/Matematika-z-racunalnikom/gombocid2/best.stl", force='mesh')
 
 # variant A1: ciljna največja dolžina roba (manjša -> gostejša)
-max_edge = 0.0005  # prilagodi: manjše število => bolj fina mreža
+max_edge = 0.5  # prilagodi: manjše število => bolj fina mreža
 # remesh zahteva posebej oglišča in ploskve
 vertices, faces = remesh.subdivide_to_size(mesh.vertices, mesh.faces, max_edge=max_edge)
 
