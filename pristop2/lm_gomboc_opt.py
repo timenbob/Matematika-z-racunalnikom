@@ -376,7 +376,7 @@ def optimize_shape(mesh_in: tm.Trimesh,
         if elites[0][0] < best_score:
             best_score, best_counts, best_mesh = elites[0][0], elites[0][1], elites[0][3].copy()
 
-        if it % 5 == 0:
+        if it % 1 == 0:
             tm.exchange.export.export_mesh(best_mesh, os.path.join(outdir, f"mesh_it{it:04d}.stl"))
         print(f"[{it:03d}] best L={best_score:.3f} (s,u,t)={best_counts}  mu_norm={np.linalg.norm(mu):.3f}")
 
@@ -395,7 +395,7 @@ if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser("ML/ES tuning to (1 stable, 1 unstable) with exactly two mirrors")
     ap.add_argument("--stl", required=False,
-                    default="/home/timen/Documents/Faks/Matematika-z-racunalnikom/novi.stl",
+                    default="/home/timen/Documents/Faks/Matematika-z-racunalnikom/gombocid2/best.stl",
                     help="Pot do STL datoteke")
     ap.add_argument("--iters", type=int, default=150)
     ap.add_argument("--pop", type=int, default=32)
@@ -406,7 +406,7 @@ if __name__ == "__main__":
     ap.add_argument("--coef_sigma", type=float, default=0.2, help="Inicialni std za koeficiente")
     ap.add_argument("--dirs", type=int, default=6000, help="# smeri na sferi za detekcijo")
     ap.add_argument("--eps", type=float, default=2e-3, help="majhen kotni zasuk za klasifikacijo")
-    ap.add_argument("--out", type=str, default="ml_out3")
+    ap.add_argument("--out", type=str, default="ml_out6")
     ap.add_argument("--seed", type=int, default=5)
     args = ap.parse_args()
 
